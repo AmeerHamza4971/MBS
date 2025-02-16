@@ -1,0 +1,52 @@
+﻿@model MBS.Models.Billing;
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Horizontal Form</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form asp-action="AddNewBill">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Name</label>
+                                <input type="text" asp-for="SpentName" class="form-control" placeholder="type spent name">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Amount</label>
+                                <input type="number" asp-for="SepentAmount" class="form-control" placeholder="type spent amount">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>From Date</label>
+                                <input asp-for="FromDate" type="datetime-local" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>To Date</label>
+                                <input asp-for="ToDate" type="datetime-local" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Note</label>
+                                <input type="text" asp-for="Reason" class="form-control" placeholder="type notes here">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Remaining</label>
+                                <input type="text" asp-for="Remaing" class="form-control" placeholder="type remaining days">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Status</label>
+                                <select asp-for="Status" class="form-control">
+                                    <option selected>Status</option>
+                                    <option>Pending</option>
+                                    <option>Done</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
