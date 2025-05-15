@@ -106,15 +106,15 @@
                 <div class="quixnav-scroll">
                     <ul class="metismenu" id="menu">
                         <li class="nav-label first">Main Menu</li>
-                        <!-- <li><a href="index.html"><i class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
-                        </li> -->
+                        <li>
+                            <a asp-action="Index" asp-controller="Dashboard"><i class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
+                        </li>
 
                         <li>
                             <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class="icon icon-single-04"></i><span class="nav-text">Billing</span>
+                                <i class="icon icon-layout-25"></i><span class="nav-text">Billing</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a asp-action="Index" asp-controller="Dashboard">Dashboard</a></li>
                                 <li><a asp-action="BillingList" asp-controller="Billing">List</a></li>
                             </ul>
                         </li>

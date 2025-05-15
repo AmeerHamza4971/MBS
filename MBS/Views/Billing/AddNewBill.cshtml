@@ -3,11 +3,13 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Horizontal Form</h4>
+                <h4 class="card-title">@(ViewBag.Title ?? (Model?.Id > 0 ? "Edit Bill" : "Add New Bill"))</h4>
             </div>
             <div class="card-body">
                 <div class="basic-form">
                     <form asp-action="AddNewBill">
+                        @* Hidden field to store the ID for edit operations *@
+                        <input type="hidden" asp-for="Id" />
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -15,8 +17,22 @@
                                 <input type="text" asp-for="SpentName" class="form-control" placeholder="type spent name">
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Amount</label>
+                                <label>Status</label>
+                                <select asp-for="Status" class="form-control">
+                                    <option value="">Select Status</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Paid">Paid</option>
+                                    <option value="Unpaid">Unpaid</option>
+                                    <option value="Remaining">In Progress</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Amount to Pay</label>
                                 <input type="number" asp-for="SepentAmount" class="form-control" placeholder="type spent amount">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Remaining Amount</label>
+                                <input type="number" asp-for="RemaingAmount" class="form-control" placeholder="type remaining days">
                             </div>
                             <div class="form-group col-md-6">
                                 <label>From Date</label>
@@ -26,24 +42,14 @@
                                 <label>To Date</label>
                                 <input asp-for="ToDate" type="datetime-local" class="form-control">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label>Note</label>
-                                <input type="text" asp-for="Reason" class="form-control" placeholder="type notes here">
+                                <textarea type="text" rows="8" asp-for="Reason" class="form-control" placeholder="type notes here"></textarea>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label>Remaining</label>
-                                <input type="text" asp-for="Remaing" class="form-control" placeholder="type remaining days">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Status</label>
-                                <select asp-for="Status" class="form-control">
-                                    <option selected>Status</option>
-                                    <option>Pending</option>
-                                    <option>Done</option>
-                                </select>
-                            </div>
+                            
                         </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">@(Model?.Id > 0 ? "Update" : "Save")</button>
+                        <a asp-action="BillingList" class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>
             </div>

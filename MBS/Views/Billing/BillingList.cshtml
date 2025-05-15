@@ -28,6 +28,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Amount</th>
+                                        <th>Remaining</th>
                                         <th>FromDate</th>
                                         <th>ToDate</th>
                                         <th>Status</th>
@@ -40,10 +41,17 @@
                                         <tr>
                                             <td>@item.SpentName</td>
                                             <td>@item.SepentAmount</td>
+                                            <td>@item.RemaingAmount</td>
                                             <td>@item.FromDate</td>
                                             <td>@item.ToDate</td>
                                             <td>@item.Status</td>
-                                            <td><a class="btn btn-secondary">Edit</a></td>
+                                            <td>
+                                                <a asp-action="AddNewBill" asp-route-id="@item.Id" class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                    <i class="fa fa-pencil color-muted"></i> </a>
+                                                <a asp-action="DeleteBill" asp-route-id="@item.Id" class="mr-4" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                    <i class="fa fa-close color-muted"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>
@@ -55,3 +63,28 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('.delete-btn').click(function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+
+                if (confirm('Are you sure you want to delete this bill?')) {
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        success: function(result) {
+                            window.location.reload();
+                        },
+                        error: function(error) {
+                            alert('Error deleting bill');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

@@ -8,6 +8,9 @@ public class Billing
     public DateTime FromDate { get; set; }
     public DateTime ToDate { get; set; }
     public string Reason { get; set; } = default!;
-    public string Remaing { get; set; } = default!;
-    public string Status {  get; set; } = default!;  
+    public decimal RemaingAmount { get; set; } = default!;
+    public string Status {  get; set; } = default!;
+    public DateTime CreatedDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
+    public bool IsDeleted { get; set; }
 }
