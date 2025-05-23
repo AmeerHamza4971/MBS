@@ -10,6 +10,7 @@
     <link href="~/vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="~/vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -70,7 +71,6 @@
                                             </div>
                                             <span class="notify-time">3:20 am</span>
                                         </li>
-
                                     </ul>
                                     <a class="all-notification" href="#">
                                         See all notifications <i class="ti-arrow-right"></i>
@@ -112,17 +112,16 @@
 
                         <li>
                             <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class="icon icon-layout-25"></i><span class="nav-text">Billing</span>
+                                <i class="icon icon-layout-25"></i><span class="nav-text">MBS</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a asp-action="BillingList" asp-controller="Billing">List</a></li>
+                                <li><a asp-action="BillingList" asp-controller="Billing">Billing</a></li>
+                                <li><a asp-action="TodoList" asp-controller="TodoTask">Todo Task</a></li>
                             </ul>
                         </li>
 
-
                     </ul>
                 </div>
-
 
             </div>
             <main role="main">
@@ -148,7 +147,14 @@
     <script src="~/vendor/pg-calendar/js/pignose.calendar.min.js"></script>
     <script src="~/js/dashboard/dashboard-1.js"></script>
     <!-- Dashboard end -->
-        
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="~/js/plugins-init/sweetalert.init.js"></script>
+    <!-- In the head section -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

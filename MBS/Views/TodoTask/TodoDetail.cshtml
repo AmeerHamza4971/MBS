@@ -1,0 +1,155 @@
+﻿@model MBS.Models.TodoTask
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-action="TodoList">Todo Tasks</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Details</a></li>
+                </ol>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mr-2">Edit</a>
+                <a asp-action="TodoList" class="btn btn-light">Back to List</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Task Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Task Name</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static mb-0">@Model.Name</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Type</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static mb-0">@Model.Type</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Status</label>
+                                <div class="col-sm-9">
+                                    @switch (Model.Status)
+                                    {
+                                        case "Pending":
+                                            <span class="badge badge-warning">Pending</span>
+                                            break;
+                                        case "Active":
+                                            <span class="badge badge-success">Active</span>
+                                            break;
+                                        case "Inactive":
+                                            <span class="badge badge-secondary">Inactive</span>
+                                            break;
+                                        case "Completed":
+                                            <span class="badge badge-info">Completed</span>
+                                            break;
+                                        default:
+                                            <span class="badge badge-light">@Model.Status</span>
+                                            break;
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Deadline</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static mb-0">
+                                        @(Model.Deadline?.ToString("yyyy-MM-dd") ?? "Not specified")
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Created Date</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static mb-0">@Model.CreatedDate.ToString("yyyy-MM-dd HH:mm")</p>
+                                </div>
+                            </div>
+
+                            @if (Model.UpdatedDate.HasValue)
+                            {
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Last Updated</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static mb-0">@Model.UpdatedDate.Value.ToString("yyyy-MM-dd HH:mm")</p>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Tags</label>
+                                <div class="col-sm-9">
+                                    @if (Model.TagList != null && Model.TagList.Any())
+                                    {
+                                        <div>
+                                            @foreach (var tag in Model.TagList)
+                                            {
+                                                var billings = ViewBag.RelatedBillings as IEnumerable<MBS.Models.Billing>;
+                                                var billing = billings?.FirstOrDefault(b => b.Id.ToString() == tag);
+                                                if (billing != null)
+                                                {
+                                                    <span class="badge badge-primary mr-2 p-2"
+                                                          data-toggle="tooltip"
+                                                          data-html="true"
+                                                          title="<strong>Amount:</strong> @billing.SpentAmount<br><strong>Remaining:</strong> @billing.RemaingAmount<br><strong>Status:</strong> @billing.Status">
+                                                        @billing.SpentName
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-secondary mr-2 p-2">@tag</span>
+                                                }
+                                            }
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <p class="form-control-static mb-0">No tags</p>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Description</label>
+                                <div class="col-sm-9">
+                                    <div class="p-3 bg-light rounded">
+                                        @if (!string.IsNullOrEmpty(Model.Description))
+                                        {
+                                            <p class="mb-0">@Model.Description</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="text-muted mb-0">No description provided</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize tooltips with HTML content
+            $('[data-toggle="tooltip"]').tooltip({
+                html: true
+            });
+        });
+    </script>
+}

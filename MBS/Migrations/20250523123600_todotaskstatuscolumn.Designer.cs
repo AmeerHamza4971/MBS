@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MBS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250514201327_addColumns")]
-    partial class addColumns
+    [Migration("20250523123600_todotaskstatuscolumn")]
+    partial class todotaskstatuscolumn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,7 +49,7 @@ namespace MBS.Migrations
                     b.Property<decimal>("RemaingAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("SepentAmount")
+                    b.Property<decimal>("SpentAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SpentName")
@@ -69,6 +69,51 @@ namespace MBS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Billings");
+                });
+
+            modelBuilder.Entity("MBS.Models.TodoTask", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Deadline")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TodoTasks");
                 });
 #pragma warning restore 612, 618
         }

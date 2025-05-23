@@ -16,15 +16,23 @@ public class DashboardController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var amount = await _db.Billings.ToListAsync();
-        ViewBag.SepentAmount = amount.Where(x => x.Status == "Paid").Sum(x => x.SepentAmount);
-        ViewBag.RemaingAmount = amount.Where(x => x.Status != "Pending").Sum(x => x.RemaingAmount);
-        ViewBag.CurrentMonthAmount = amount
-            .Where(x => x.FromDate.Month == DateTime.Now.Month && x.FromDate.Year == DateTime.Now.Year)
-            .Sum(x => x.SepentAmount + x.RemaingAmount);
+        var list = await _db.Billings.ToListAsync();
 
-        ViewBag.TotalAmount = ViewBag.SepentAmount + ViewBag.RemaingAmount;
-        return View();
+        ViewBag.CurrentUnpaid = list
+            .Where(x => x.FromDate.Month == DateTime.Now.Month && x.FromDate.Year == DateTime.Now.Year && x.Status == "Unpaid")
+            .Sum(x => x.RemaingAmount);
+        ViewBag.CurrentPaid = list
+            .Where(x => x.FromDate.Month == DateTime.Now.Month && x.FromDate.Year == DateTime.Now.Year && x.Status == "Paid")
+            .Sum(x => x.SpentAmount);
+        
+
+        ViewBag.TotalPending = list.Where(x => x.Status == "Pending").Sum(x => x.RemaingAmount);
+        ViewBag.TotalUnpaid = list.Where(x => x.Status == "Unpaid").Sum(x => x.RemaingAmount);
+        ViewBag.TotalPaid = list.Where(x => x.Status == "Paid").Sum(x => x.SpentAmount);
+
+
+        ViewBag.TotalAmount = ViewBag.TotalPaid + ViewBag.TotalUnpaid;
+        return View(list.Where(x => x.CreatedDate > DateTime.Today.AddDays(-7)));
     }
 
 }

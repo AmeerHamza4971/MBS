@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MBS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250514190005_changecolumnnameRemaing")]
-    partial class changecolumnnameRemaing
+    [Migration("20250523102013_todotask")]
+    partial class todotask
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,8 +33,14 @@ namespace MBS.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Reason")
                         .IsRequired()
@@ -43,7 +49,7 @@ namespace MBS.Migrations
                     b.Property<decimal>("RemaingAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("SepentAmount")
+                    b.Property<decimal>("SpentAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SpentName")
@@ -57,9 +63,53 @@ namespace MBS.Migrations
                     b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Billings");
+                });
+
+            modelBuilder.Entity("MBS.Models.TodoTask", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Deadline")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TodoTasks");
                 });
 #pragma warning restore 612, 618
         }

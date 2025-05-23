@@ -45,15 +45,33 @@ public class BillingController : Controller
     [HttpPost]
     public async Task<IActionResult> AddNewBill(Billing dto)
     {
+        // Remove the Id validation error if it's the only issue
+        if (!ModelState.IsValid && ModelState.ErrorCount == 1 && ModelState.ContainsKey("Id"))
+        {
+            ModelState.Clear();
+            dto.Id = 0; // Set Id to 0 for new records
+        }
+
         if (ModelState.IsValid)
         {
-            // If ID is 0, it's a new record, otherwise update existing
             if (dto.Id == 0)
             {
+                // New record
+                dto.CreatedDate = DateTime.Now;
                 await _context.AddAsync(dto);
             }
             else
             {
+                // Existing record
+                var existingBilling = await _context.Billings.AsNoTracking().FirstOrDefaultAsync(b => b.Id == dto.Id);
+                if (existingBilling == null)
+                {
+                    return NotFound();
+                }
+
+                // Update the existing billing
+                dto.CreatedDate = existingBilling.CreatedDate; // Keep the original created date
+                dto.UpdatedDate = DateTime.Now; // Keep the original created date
                 _context.Update(dto);
             }
 
@@ -67,7 +85,7 @@ public class BillingController : Controller
         return View(dto);
     }
 
-    // Add this method to your BillingController class
+    [HttpPost]
     public async Task<IActionResult> DeleteBill(long id)
     {
         var billing = await _context.Billings.FindAsync(id);
@@ -78,7 +96,8 @@ public class BillingController : Controller
 
         _context.Billings.Remove(billing);
         await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(BillingList));
+        return Ok(); // Return a success response
     }
+
 
 }

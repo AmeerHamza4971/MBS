@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<MBS.Models.Billing>
 
 <div class="content-body">
     <div class="container-fluid">
@@ -11,14 +11,81 @@
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Layout</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Blank</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">MB'sS</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
                 </ol>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-lg-4 col-sm-6">
+                <div class="card">
+                    <div class="stat-widget-one card-body">
+                        <div class="stat-icon d-inline-block">
+                            <i class="ti-money text-white border-danger bg-danger"></i>
+                        </div>
+                        <div class="stat-content d-inline-block">
+                            <div class="stat-text">Current Unpaid</div>
+                            <div class="stat-digit">Rs @(ViewBag.CurrentUnpaid != null ? ViewBag.CurrentUnpaid.ToString("#,##0.00") : "0.00")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="card">
+                    <div class="stat-widget-one card-body">
+                        <div class="stat-icon d-inline-block">
+                            <i class="ti-money text-white border-primary bg-primary"></i>
+                        </div>
+                        <div class="stat-content d-inline-block">
+                            <div class="stat-text">Current Paid</div>
+                            <div class="stat-digit">Rs @(ViewBag.CurrentPaid != null ? ViewBag.CurrentPaid.ToString("#,##0.00") : "0.00")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-sm-6">
+                <div class="card">
+                    <div class="stat-widget-one card-body">
+                        <div class="stat-icon d-inline-block">
+                            <i class="ti-money text-pink border-pink"></i>
+                        </div>
+                        <div class="stat-content d-inline-block">
+                            <div class="stat-text">Total Pending</div>
+                            <div class="stat-digit">Rs @(ViewBag.TotalPending != null ? ViewBag.TotalPending.ToString("#,##0.00") : "0.00")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="card">
+                    <div class="stat-widget-one card-body">
+                        <div class="stat-icon d-inline-block">
+                            <i class="ti-money text-danger border-danger"></i>
+                        </div>
+                        <div class="stat-content d-inline-block">
+                            <div class="stat-text">Total Unpaid </div>
+                            <div class="stat-digit">Rs @(ViewBag.TotalUnpaid != null ? ViewBag.TotalUnpaid.ToString("#,##0.00") : "0.00")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="card">
+                    <div class="stat-widget-one card-body">
+                        <div class="stat-icon d-inline-block">
+                            <i class="ti-money text-primary border-primary"></i>
+                        </div>
+                        <div class="stat-content d-inline-block">
+                            <div class="stat-text">Total Paid</div>
+                            <div class="stat-digit">Rs @(ViewBag.TotalPaid != null ? ViewBag.TotalPaid.ToString("#,##0.00") : "0.00")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-sm-6">
                 <div class="card">
                     <div class="stat-widget-one card-body">
                         <div class="stat-icon d-inline-block">
@@ -31,164 +98,39 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="card">
-                    <div class="stat-widget-one card-body">
-                        <div class="stat-icon d-inline-block">
-                            <i class="ti-money text-primary border-primary"></i>
-                        </div>
-                        <div class="stat-content d-inline-block">
-                            <div class="stat-text">Current Amount</div>
-                            <div class="stat-digit">Rs @(ViewBag.CurrentMonthAmount != null ? ViewBag.CurrentMonthAmount.ToString("#,##0.00") : "0.00")</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="card">
-                    <div class="stat-widget-one card-body">
-                        <div class="stat-icon d-inline-block">
-                            <i class="ti-money text-pink border-pink"></i>
-                        </div>
-                        <div class="stat-content d-inline-block">
-                            <div class="stat-text">Spent Amount</div>
-                            <div class="stat-digit">Rs @(ViewBag.SepentAmount != null ? ViewBag.SepentAmount.ToString("#,##0.00") : "0.00")</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="card">
-                    <div class="stat-widget-one card-body">
-                        <div class="stat-icon d-inline-block">
-                            <i class="ti-money text-danger border-danger"></i>
-                        </div>
-                        <div class="stat-content d-inline-block">
-                            <div class="stat-text">Remaing Amount</div>
-                            <div class="stat-digit">Rs @(ViewBag.RemaingAmount != null ? ViewBag.RemaingAmount.ToString("#,##0.00") : "0.00")</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Check your Stats</h4>
+                        <h4 class="card-title">Last Week Stats</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table student-data-table m-t-20">
                                 <thead>
                                     <tr>
-                                        <th>Subject</th>
-                                        <th>Grade Point</th>
-                                        <th>Percent Form</th>
-                                        <th>Percent Upto</th>
-                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th>Amount</th>
+                                        <th>Remaining</th>
+                                        <th>FromDate</th>
+                                        <th>ToDate</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Class Test</td>
-                                        <td>Mathmatics</td>
-                                        <td>
-                                            4.00
-                                        </td>
-                                        <td>
-                                            95.00
-                                        </td>
-                                        <td>
-                                            100
-                                        </td>
-                                        <td>20/04/2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Class Test</td>
-                                        <td>Mathmatics</td>
-                                        <td>
-                                            4.00
-                                        </td>
-                                        <td>
-                                            95.00
-                                        </td>
-                                        <td>
-                                            100
-                                        </td>
-                                        <td>20/04/2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Class Test</td>
-                                        <td>English</td>
-                                        <td>
-                                            4.00
-                                        </td>
-                                        <td>
-                                            95.00
-                                        </td>
-                                        <td>
-                                            100
-                                        </td>
-                                        <td>20/04/2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Class Test</td>
-                                        <td>Bangla</td>
-                                        <td>
-                                            4.00
-                                        </td>
-                                        <td>
-                                            95.00
-                                        </td>
-                                        <td>
-                                            100
-                                        </td>
-                                        <td>20/04/2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Class Test</td>
-                                        <td>Mathmatics</td>
-                                        <td>
-                                            4.00
-                                        </td>
-                                        <td>
-                                            95.00
-                                        </td>
-                                        <td>
-                                            100
-                                        </td>
-                                        <td>20/04/2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Class Test</td>
-                                        <td>English</td>
-                                        <td>
-                                            4.00
-                                        </td>
-                                        <td>
-                                            95.00
-                                        </td>
-                                        <td>
-                                            100
-                                        </td>
-                                        <td>20/04/2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Class Test</td>
-                                        <td>Mathmatics</td>
-                                        <td>
-                                            4.00
-                                        </td>
-                                        <td>
-                                            95.00
-                                        </td>
-                                        <td>
-                                            100
-                                        </td>
-                                        <td>20/04/2017</td>
-                                    </tr>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.SpentName</td>
+                                            <td>@item.SpentAmount</td>
+                                            <td>@item.RemaingAmount</td>
+                                            <td>@item.FromDate</td>
+                                            <td>@item.ToDate</td>
+                                            <td>@item.Status</td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>

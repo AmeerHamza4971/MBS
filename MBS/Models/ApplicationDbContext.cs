@@ -10,5 +10,7 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<Billing> Billings { get; set; }
+    public DbSet<TodoTask> TodoTasks { get; set; }
+
 
 }
