@@ -18,86 +18,228 @@
         </div>
 
         <div class="row">
+
+            @* Pending *@
             <div class="col-lg-4 col-sm-6">
                 <div class="card">
-                    <div class="stat-widget-one card-body">
-                        <div class="stat-icon d-inline-block">
-                            <i class="ti-money text-white border-danger bg-danger"></i>
+                    <div class="card-body">
+                        <h5 class="card-title">Pending</h5>
+
+                        <div class="stat-widget-one">
+                            <div class="stat-icon d-inline-block">
+                                <i class="ti-money text-pink border-pink"></i>
+                            </div>
+
+                            <div class="stat-content d-inline-block">
+                                <div class="stat-text">Spent</div>
+                                <div class="stat-digit">
+                                    Rs @(ViewBag.PendingSpent != null ? ViewBag.PendingSpent.ToString("#,##0.00") : "0.00")
+                                </div>
+                            </div>
                         </div>
-                        <div class="stat-content d-inline-block">
-                            <div class="stat-text">Current Unpaid</div>
-                            <div class="stat-digit">Rs @(ViewBag.CurrentUnpaid != null ? ViewBag.CurrentUnpaid.ToString("#,##0.00") : "0.00")</div>
+
+                        <div class="stat-widget-one mt-3">
+                            <div class="stat-icon d-inline-block">
+                                <i class="ti-wallet text-white bg-dark border-dark"></i>
+                            </div>
+
+                            <div class="stat-content d-inline-block">
+                                <div class="stat-text">Remaining</div>
+                                <div class="stat-digit">
+                                    Rs @(ViewBag.PendingRemaing != null ? ViewBag.PendingRemaing.ToString("#,##0.00") : "0.00")
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
+
+
+            @* Current Paid *@
             <div class="col-lg-4 col-sm-6">
                 <div class="card">
-                    <div class="stat-widget-one card-body">
-                        <div class="stat-icon d-inline-block">
-                            <i class="ti-money text-white border-primary bg-primary"></i>
+                    <div class="card-body">
+                        <h5 class="card-title">Current Paid</h5> <!-- Main Heading -->
+
+                        <div class="stat-widget-one">
+                            <div class="stat-icon d-inline-block">
+                                <i class="ti-money text-primary border-primary"></i>
+                            </div>
+
+                            <div class="stat-content d-inline-block">
+                                <div class="stat-text">Spent</div>
+                                <div class="stat-digit">
+                                    Rs @(ViewBag.CurrentPaidSpent != null ? ViewBag.CurrentPaidSpent.ToString("#,##0.00") : "0.00")
+                                </div>
+                            </div>
                         </div>
-                        <div class="stat-content d-inline-block">
-                            <div class="stat-text">Current Paid</div>
-                            <div class="stat-digit">Rs @(ViewBag.CurrentPaid != null ? ViewBag.CurrentPaid.ToString("#,##0.00") : "0.00")</div>
+
+                        <div class="stat-widget-one mt-3">
+                            <div class="stat-icon d-inline-block">
+                                <i class="ti-wallet text-primary border-primary"></i>
+                            </div>
+
+                            <div class="stat-content d-inline-block">
+                                <div class="stat-text">Remaining</div>
+                                <div class="stat-digit">
+                                    Rs @(ViewBag.CurrentPaidRemaining != null ? ViewBag.CurrentPaidRemaining.ToString("#,##0.00") : "0.00")
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
+
+
+            @* Current Unpaid *@
+            <div class="col-lg-4 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Current Unpaid</h5> <!-- Main Heading -->
+
+                        <div class="stat-widget-one">
+                            <div class="stat-icon d-inline-block">
+                                <i class="ti-money text-danger border-danger"></i>
+                            </div>
+
+                            <div class="stat-content d-inline-block">
+                                <div class="stat-text">Spent</div>
+                                <div class="stat-digit">
+                                    Rs @(ViewBag.CurrentUnpaidSpent != null ? ViewBag.CurrentUnpaidSpent.ToString("#,##0.00") : "0.00")
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-widget-one mt-3">
+                            <div class="stat-icon d-inline-block">
+                                <i class="ti-wallet text-danger border-danger"></i>
+                            </div>
+
+                            <div class="stat-content d-inline-block">
+                                <div class="stat-text">Remaining</div>
+                                <div class="stat-digit">
+                                    Rs @(ViewBag.CurrentUnpaidRemaining != null ? ViewBag.CurrentUnpaidRemaining.ToString("#,##0.00") : "0.00")
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
             
+            @* In Progress *@
             <div class="col-lg-4 col-sm-6">
                 <div class="card">
-                    <div class="stat-widget-one card-body">
-                        <div class="stat-icon d-inline-block">
-                            <i class="ti-money text-pink border-pink"></i>
+                    <div class="card-body">
+                        <h5 class="card-title">In Progress</h5>
+
+                        <div class="stat-widget-one">
+                            <div class="stat-icon d-inline-block">
+                                <i class="ti-money text-info border-info"></i>
+                            </div>
+
+                            <div class="stat-content d-inline-block">
+                                <div class="stat-text">Spent</div>
+                                <div class="stat-digit">
+                                    Rs @(ViewBag.InProgressSpent != null ? ViewBag.InProgressSpent.ToString("#,##0.00") : "0.00")
+                                </div>
+                            </div>
                         </div>
-                        <div class="stat-content d-inline-block">
-                            <div class="stat-text">Total Pending</div>
-                            <div class="stat-digit">Rs @(ViewBag.TotalPending != null ? ViewBag.TotalPending.ToString("#,##0.00") : "0.00")</div>
+
+                        <div class="stat-widget-one mt-3">
+                            <div class="stat-icon d-inline-block">
+                                <i class="ti-wallet text-white bg-info border-info"></i>
+                            </div>
+
+                            <div class="stat-content d-inline-block">
+                                <div class="stat-text">Remaining</div>
+                                <div class="stat-digit">
+                                    Rs @(ViewBag.InProgressRemaining != null ? ViewBag.InProgressRemaining.ToString("#,##0.00") : "0.00")
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
+
+            @* Paid *@
             <div class="col-lg-4 col-sm-6">
                 <div class="card">
-                    <div class="stat-widget-one card-body">
-                        <div class="stat-icon d-inline-block">
-                            <i class="ti-money text-danger border-danger"></i>
+                    <div class="card-body">
+                        <h5 class="card-title">Paid</h5>
+
+                        <div class="stat-widget-one">
+                            <div class="stat-icon d-inline-block">
+                                <i class="ti-money text-primary border-primary"></i>
+                            </div>
+
+                            <div class="stat-content d-inline-block">
+                                <div class="stat-text">Spent</div>
+                                <div class="stat-digit">
+                                    Rs @(ViewBag.PaidSpent != null ? ViewBag.PaidSpent.ToString("#,##0.00") : "0.00")
+                                </div>
+                            </div>
                         </div>
-                        <div class="stat-content d-inline-block">
-                            <div class="stat-text">Total Unpaid </div>
-                            <div class="stat-digit">Rs @(ViewBag.TotalUnpaid != null ? ViewBag.TotalUnpaid.ToString("#,##0.00") : "0.00")</div>
+
+                        <div class="stat-widget-one mt-3">
+                            <div class="stat-icon d-inline-block">
+                                <i class="ti-wallet text-white bg-primary  border-primary"></i>
+                            </div>
+
+                            <div class="stat-content d-inline-block">
+                                <div class="stat-text">Remaining</div>
+                                <div class="stat-digit">
+                                    Rs @(ViewBag.PaidRemaining != null ? ViewBag.PaidRemaining.ToString("#,##0.00") : "0.00")
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
+
+            @* UnPaid *@
             <div class="col-lg-4 col-sm-6">
                 <div class="card">
-                    <div class="stat-widget-one card-body">
-                        <div class="stat-icon d-inline-block">
-                            <i class="ti-money text-primary border-primary"></i>
+                    <div class="card-body">
+                        <h5 class="card-title">Unpaid</h5>
+
+                        <div class="stat-widget-one">
+                            <div class="stat-icon d-inline-block">
+                                <i class="ti-money  text-danger border-danger"></i>
+                            </div>
+
+                            <div class="stat-content d-inline-block">
+                                <div class="stat-text">Spent</div>
+                                <div class="stat-digit">
+                                    Rs @(ViewBag.UnpaidSpent != null ? ViewBag.UnpaidSpent.ToString("#,##0.00") : "0.00")
+                                </div>
+                            </div>
                         </div>
-                        <div class="stat-content d-inline-block">
-                            <div class="stat-text">Total Paid</div>
-                            <div class="stat-digit">Rs @(ViewBag.TotalPaid != null ? ViewBag.TotalPaid.ToString("#,##0.00") : "0.00")</div>
+
+                        <div class="stat-widget-one mt-3">
+                            <div class="stat-icon d-inline-block">
+                                <i class="ti-wallet text-white bg-danger border-danger"></i>
+                            </div>
+
+                            <div class="stat-content d-inline-block">
+                                <div class="stat-text">Remaining</div>
+                                <div class="stat-digit">
+                                    Rs @(ViewBag.UnpaidRemaining != null ? ViewBag.UnpaidRemaining.ToString("#,##0.00") : "0.00")
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
+
+
             
-            <div class="col-lg-4 col-sm-6">
-                <div class="card">
-                    <div class="stat-widget-one card-body">
-                        <div class="stat-icon d-inline-block">
-                            <i class="ti-money text-success border-success"></i>
-                        </div>
-                        <div class="stat-content d-inline-block">
-                            <div class="stat-text">Total Amount</div>
-                            <div class="stat-digit">Rs @(ViewBag.TotalAmount != null ? ViewBag.TotalAmount.ToString("#,##0.00") : "0.00")</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="row">

@@ -22,6 +22,7 @@ public class TodoTask
 
     public string Tags { get; set; } 
 
+    public DateTime? StartDate { get; set; }
     public DateTime? Deadline { get; set; }
 
     public DateTime CreatedDate { get; set; }

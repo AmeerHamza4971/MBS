@@ -57,6 +57,35 @@
 
                                 <!-- Second row with two fields -->
                                 <div class="form-row">
+
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="StartDate" class="control-label">Start Date (Optional)</label>
+                                        <input asp-for="StartDate" type="datetime-local" class="form-control" />
+                                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="Deadline" class="control-label">End Date (Optional)</label>
+                                        <input asp-for="Deadline" type="datetime-local" class="form-control" />
+                                        <span asp-validation-for="Deadline" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-row">
+                                    <!-- Tags field -->
+                                    <div class="form-group  col-md-6">
+                                        <label class="control-label">Tags (optional)</label>
+                                        <div class="select2-container">
+                                            <select name="selectedTags" class="form-control select2-multi" multiple="multiple">
+                                                @foreach (var billing in ViewBag.Billings)
+                                                {
+                                                    <option value="@billing.Id">@billing.SpentName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <small class="form-text text-muted">Select one or more billings to tag with this task</small>
+                                    </div>
                                     <div class="form-group col-md-6">
                                         <label asp-for="Status" class="control-label">Status</label>
                                         <select asp-for="Status" class="form-control">
@@ -68,26 +97,6 @@
                                         </select>
                                         <span asp-validation-for="Status" class="text-danger"></span>
                                     </div>
-
-                                    <div class="form-group col-md-6">
-                                        <label asp-for="Deadline" class="control-label">Deadline (Optional)</label>
-                                        <input asp-for="Deadline" type="date" class="form-control" />
-                                        <span asp-validation-for="Deadline" class="text-danger"></span>
-                                    </div>
-                                </div>
-
-                                <!-- Tags field -->
-                                <div class="form-group">
-                                    <label class="control-label">Tags (optional)</label>
-                                    <div class="select2-container">
-                                        <select name="selectedTags" class="form-control select2-multi" multiple="multiple">
-                                            @foreach (var billing in ViewBag.Billings)
-                                            {
-                                                <option value="@billing.Id">@billing.SpentName</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <small class="form-text text-muted">Select one or more billings to tag with this task</small>
                                 </div>
 
                                 <!-- Description field in its own row at the bottom -->
@@ -113,44 +122,94 @@
 
 @section Scripts {
     <style>
-        /* Dropdown hover styles */
-        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+        /* All Select2 dropdown hover styles */
+        .select2-container--classic .select2-results__option:hover,
+        .select2-container--classic .select2-results__option--highlighted {
             background-color: #6b51df !important;
-            color: white;
+            color: white !important;
         }
 
-        /* For regular dropdowns */
-        .dropdown-item:hover, .dropdown-item:focus {
+        .select2-container--classic .select2-results__option[aria-selected="true"] {
             background-color: #6b51df !important;
-            color: white;
+            color: white !important;
         }
 
-        /* For select elements */
-        select option:hover,
-        select option:focus,
-        select option:active,
-        select option:checked {
+        /* Ensure consistent styling for all Select2 containers */
+        .select2-container--classic .select2-selection--single {
+            height: 38px !important;
+            border: 1px solid #ced4da !important;
+        }
+
+            .select2-container--classic .select2-selection--single .select2-selection__rendered {
+                line-height: 36px !important;
+                padding-left: 12px !important;
+            }
+
+            .select2-container--classic .select2-selection--single .select2-selection__arrow {
+                height: 36px !important;
+            }
+
+        .select2-container--classic .select2-selection--single {
+            background-color: #fff;
+            background-image: none;
+        }
+
+        .select2-selection__arrow {
+            display: none !important;
+        }
+
+        .select2-container--classic .select2-selection--multiple {
+            border: 1px solid #eaeaea !important;
+        }
+        /* Regular select dropdown hover styles (fallback for browsers that support it) */
+        select.form-control option:hover,
+        select.form-control option:focus,
+        select.form-control option:active {
+            background-color: #6b51df !important;
+            color: white !important;
             background: linear-gradient(#6b51df, #6b51df) !important;
+        }
+
+        /* Selected option styling */
+        select.form-control option:checked {
             background-color: #6b51df !important;
+            color: white !important;
+            background: linear-gradient(#6b51df, #6b51df) !important;
+        }
+
+        /* For Bootstrap dropdown items (if any) */
+        .dropdown-item:hover,
+        .dropdown-item:focus {
+            background-color: #6b51df !important;
+            color: white !important;
+        }
+
+        .select2-container .select2-search--inline .select2-search__field{
+            height: 27px !important;
         }
     </style>
 
     <script>
         $(document).ready(function() {
-            // Initialize Select2 for multi-select
+            // Initialize Select2 for multi-select tags
             $('.select2-multi').select2({
                 placeholder: "Select billing tags",
                 allowClear: true,
                 theme: "classic"
             });
 
-            // Add custom styling for Select2 dropdown items on hover
-            $(document).on('mouseenter', '.select2-results__option', function() {
-                $(this).css('background-color', '#6b51df').css('color', 'white');
-            }).on('mouseleave', '.select2-results__option', function() {
-                if (!$(this).hasClass('select2-results__option--highlighted')) {
-                    $(this).css('background-color', '').css('color', '');
-                }
+            // Initialize Select2 for Task Type dropdown
+            $('select[name="Type"]').select2({
+                placeholder: "-- Select Type --",
+                allowClear: false,
+                theme: "classic"
+            });
+
+            // Initialize Select2 for Status dropdown
+            $('select[name="Status"]').select2({
+                placeholder: "-- Select Status --",
+                allowClear: false,
+                theme: "classic"
             });
         });
     </script>

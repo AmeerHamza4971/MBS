@@ -18,20 +18,39 @@ public class DashboardController : Controller
     {
         var list = await _db.Billings.ToListAsync();
 
-        ViewBag.CurrentUnpaid = list
+        // Current Unpaid
+        ViewBag.CurrentUnpaidSpent = list
+            .Where(x => x.FromDate.Month == DateTime.Now.Month && x.FromDate.Year == DateTime.Now.Year && x.Status == "Unpaid")
+            .Sum(x => x.SpentAmount);
+        ViewBag.CurrentUnpaidRemaining = list
             .Where(x => x.FromDate.Month == DateTime.Now.Month && x.FromDate.Year == DateTime.Now.Year && x.Status == "Unpaid")
             .Sum(x => x.RemaingAmount);
-        ViewBag.CurrentPaid = list
+
+        // Current Paid
+        ViewBag.CurrentPaidSpent = list
             .Where(x => x.FromDate.Month == DateTime.Now.Month && x.FromDate.Year == DateTime.Now.Year && x.Status == "Paid")
             .Sum(x => x.SpentAmount);
-        
-
-        ViewBag.TotalPending = list.Where(x => x.Status == "Pending").Sum(x => x.RemaingAmount);
-        ViewBag.TotalUnpaid = list.Where(x => x.Status == "Unpaid").Sum(x => x.RemaingAmount);
-        ViewBag.TotalPaid = list.Where(x => x.Status == "Paid").Sum(x => x.SpentAmount);
+        ViewBag.CurrentPaidRemaining = list
+            .Where(x => x.FromDate.Month == DateTime.Now.Month && x.FromDate.Year == DateTime.Now.Year && x.Status == "Paid")
+            .Sum(x => x.RemaingAmount);
 
 
-        ViewBag.TotalAmount = ViewBag.TotalPaid + ViewBag.TotalUnpaid;
+        // Pending
+        ViewBag.PendingSpent = list.Where(x => x.Status == "Pending").Sum(x => x.SpentAmount);
+        ViewBag.PendingRemaing = list.Where(x => x.Status == "Pending").Sum(x => x.RemaingAmount);
+
+        // Unpaid
+        ViewBag.UnpaidSpent = list.Where(x => x.Status == "Unpaid").Sum(x => x.SpentAmount);
+        ViewBag.UnpaidRemaining = list.Where(x => x.Status == "Unpaid").Sum(x => x.RemaingAmount);
+       
+        // Paid
+        ViewBag.PaidSpent = list.Where(x => x.Status == "Paid").Sum(x => x.SpentAmount);
+        ViewBag.PaidRemaining = list.Where(x => x.Status == "Paid").Sum(x => x.RemaingAmount);
+
+        // InProgress
+        ViewBag.InProgressSpent = list.Where(x => x.Status == "InProgress").Sum(x => x.SpentAmount);
+        ViewBag.InProgressRemaining = list.Where(x => x.Status == "InProgress").Sum(x => x.RemaingAmount);
+
         return View(list.Where(x => x.CreatedDate > DateTime.Today.AddDays(-7)));
     }
 
