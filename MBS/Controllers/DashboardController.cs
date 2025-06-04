@@ -51,6 +51,18 @@ public class DashboardController : Controller
         ViewBag.InProgressSpent = list.Where(x => x.Status == "InProgress").Sum(x => x.SpentAmount);
         ViewBag.InProgressRemaining = list.Where(x => x.Status == "InProgress").Sum(x => x.RemaingAmount);
 
+
+        // Current Received
+        ViewBag.CurrentReceivedAmountToPay = list
+            .Where(x => x.FromDate.Month == DateTime.Now.Month && x.FromDate.Year == DateTime.Now.Year && x.Status == "Received")
+            .Sum(x => x.SpentAmount);
+        ViewBag.CurrentReceivedRemaining = ViewBag.CurrentReceivedAmountToPay - ViewBag.CurrentPaidSpent;
+
+
+        // Received
+        ViewBag.ReceivedAmountToPay = list.Where(x => x.Status == "Received").Sum(x => x.SpentAmount);
+        ViewBag.ReceivedRemaining = ViewBag.ReceivedAmountToPay - ViewBag.PaidSpent;
+
         return View(list.Where(x => x.CreatedDate > DateTime.Today.AddDays(-7)));
     }
 
